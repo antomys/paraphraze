@@ -4,15 +4,20 @@ import java.util.stream.Collectors;
 public class TextClassifier {
     private int accuracy = 3;
 
-    private Map<String, Integer> documentsPerClass = new HashMap<>();
-    private Map<String, Map<String, Integer>> wordCountPerClass = new HashMap<>();
+    private Map<String, Integer> documentsPerClass;
+    private Map<String, Map<String, Integer>> wordCountPerClass;
 
     private boolean isParamsCalculated = false;
+    private boolean isPrepared = false;
     private Map<String, Map<String, Double>> wordPosPerClass = new HashMap<>();
     private Map<String, Double> classPos = new HashMap<>();
     private Map<String, Double> unknownWordPosPerClass = new HashMap<>();
+//    private Map<String, List<String>> synonyms;
 
     public TextClassifier() {
+//        synonyms = IOUtils.getSynonyms();
+        wordCountPerClass = DbUtils.getText();
+        documentsPerClass = wordCountPerClass.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e -> 1));
     }
 
     public void addDocument(String name, String classFile) {
@@ -25,8 +30,9 @@ public class TextClassifier {
             newWordCount.forEach((word, count) ->
                     wordCount.merge(word, count, Integer::sum));
             documentsPerClass.compute(name, (s, c) -> c + 1);
-            isParamsCalculated = false;
         }
+        isParamsCalculated = false;
+        isPrepared = false;
     }
 
     public void addDocumentDir(String name, String classDir) {
@@ -44,6 +50,28 @@ public class TextClassifier {
 
         return biggestPos.left;
     }
+
+//    private void prepare() {
+//        if (isPrepared) {
+//            return;
+//        }
+//        wordCountPerClass.values().forEach(map -> {
+//            new HashSet<>(map.keySet()).forEach(s -> {
+//                Optional<Map.Entry<String, List<String>>> any = synonyms.entrySet().stream()
+//                        .filter(e -> e.getValue().contains(s))
+//                        .findAny();
+//                if (any.isPresent()) {
+//                    Integer count = map.get(s);
+//                    map.remove(s);
+//                    Integer newCount = map.get(any.get().getKey()) == null
+//                            ? count
+//                            : map.get(any.get().getKey()) + count;
+//                    map.put(any.get().getKey(), newCount);
+//                }
+//            });
+//        });
+//        isPrepared = true;
+//    }
 
     private void calculate() {
         if (isParamsCalculated) {
