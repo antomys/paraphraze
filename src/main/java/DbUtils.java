@@ -102,7 +102,46 @@ public class DbUtils {
             }
         }
     }
-
+     //antomys method. Get text names
+      public static Map<String, List<String>> getTextNames() {
+         Connection conn = null;
+         Statement stmt = null;
+         HashMap<String, List<String>> result = new HashMap<>();
+         try {
+             conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+             stmt = conn.createStatement();
+             String sql = "select * from text;";
+             ResultSet resultSet = stmt.executeQuery(sql);
+             ArrayList<Pair<Integer, String>> pairs = new ArrayList<>();
+             while (resultSet.next()) {
+                 pairs.add(new Pair<>(resultSet.getInt("id"), resultSet.getString("text_name")));
+             }
+             for (Pair<Integer, String> pair :pairs) {
+                 ArrayList<String> text_names = new ArrayList<>();
+                 sql = "select text_name from text where id = " + pair.left;
+                 ResultSet rs = stmt.executeQuery(sql);
+                 while (rs.next()) {
+                     text_names.add(rs.getString("text_name"));
+                 }
+                 result.put(pair.rigth, text_names);
+             }
+         } catch (Exception se) {
+             se.printStackTrace();
+         } finally {
+             try {
+                 if (stmt != null)
+                     conn.close();
+             } catch (SQLException ignored) {
+             }
+             try {
+                 if (conn != null)
+                     conn.close();
+             } catch (SQLException se) {
+                 se.printStackTrace();
+             }
+         }
+         return result;
+     }
     public static Map<String, Map<String, Integer>> getText() {
         HashMap<String, Map<String, Integer>> map = new HashMap<>();
         Connection conn = null;
