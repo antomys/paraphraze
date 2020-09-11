@@ -33,6 +33,7 @@ public class AddFileController implements Initializable {
     @FXML
     private TextField textname;
     @FXML private javafx.scene.control.Button backbutton;
+    @FXML private Button uploadbutton;
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
@@ -70,6 +71,7 @@ public class AddFileController implements Initializable {
     private void UploadFile(javafx.event.ActionEvent actionEvent){
         if(textname.getText() != null)
         {
+            uploadbutton.setDisable(false);
             DbUtils.addText(textname.getText(), IOUtils.getStringFromFile(selectedFile.getAbsolutePath()));
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
@@ -94,7 +96,7 @@ public class AddFileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        uploadbutton.setDisable(true);
     }
 
     public void BackMainScene(ActionEvent actionEvent) throws IOException {
