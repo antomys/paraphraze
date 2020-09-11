@@ -71,8 +71,9 @@ public class DbUtils {
         try {
             conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
             stmt = conn.createStatement();
-            String sql = "INSERT INTO text (text_name) VALUES ('" + name.replace("'", "") + "')";
+            String sql = "INSERT INTO text (text_name,text) VALUES ('" + name.replace("'", "") + "' text)";
             stmt.executeUpdate(sql);
+
             sql = "SELECT id FROM text WHERE text_name = '" + name.replace("'", "") + "'";
             ResultSet resultSet = stmt.executeQuery(sql);
             int id = resultSet.getInt("id");
