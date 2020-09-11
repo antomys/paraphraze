@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,18 +30,18 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     private void displayAddFileScene(ActionEvent event) throws IOException {
-        App.setRoot("secondary");
-
+  NewScenes.NewScene("AddFile");
     }
 
-    private static Parent loadFXML(String fxml) throws  IOException {
+    /*private static Parent loadFXML(String fxml) throws  IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
-    }
+    }*/
 
     @FXML
     private void CloseApp(){
-
+        Platform.exit();
+        System.exit(0);
     }
 
 }

@@ -3,15 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="469.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddFileController">
+<AnchorPane fx:id="node" minWidth="-Infinity" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddFileController">
    <children>
-      <TextField fx:id="textname" layoutX="75.0" layoutY="31.0" prefHeight="25.0" prefWidth="195.0" />
-      <TextField fx:id="pathname" editable="false" layoutX="75.0" layoutY="68.0" prefHeight="25.0" prefWidth="195.0" />
-      <Label layoutX="39.0" layoutY="41.0" text="Name" />
-      <Label layoutX="39.0" layoutY="78.0" text="Path" />
-      <Button fx:id="choosebutton" layoutX="279.0" layoutY="31.0" mnemonicParsing="false" onAction="#InputFile" text="Choose" />
-      <Button fx:id="uploadbutton" layoutX="280.0" layoutY="66.0" mnemonicParsing="false" onAction="#UploadFile" text="Upload" />
-      <TextArea fx:id="previewbox" editable="false" layoutX="11.0" layoutY="121.0" prefHeight="339.0" prefWidth="322.0" wrapText="true" />
+      <TextField fx:id="textname" layoutX="61.0" layoutY="27.0" prefHeight="25.0" prefWidth="195.0" />
+      <TextField fx:id="pathname" editable="false" layoutX="61.0" layoutY="64.0" prefHeight="25.0" prefWidth="195.0" />
+      <Label layoutX="25.0" layoutY="37.0" text="Name" />
+      <Label layoutX="25.0" layoutY="74.0" text="Path" />
+      <Button fx:id="choosebutton" layoutX="265.0" layoutY="27.0" mnemonicParsing="false" onAction="#InputFile" text="Choose" />
+      <Button fx:id="uploadbutton" layoutX="266.0" layoutY="62.0" mnemonicParsing="false" onAction="#UploadFile" text="Upload" />
+      <TextArea fx:id="previewbox" editable="false" layoutX="24.0" layoutY="112.0" maxHeight="300.0" maxWidth="270.0" minHeight="300.0" minWidth="270.0" prefHeight="300.0" prefWidth="270.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="112.0" />
       <Label layoutX="18.0" layoutY="95.0" text="Preview" />
       <Button fx:id="backbutton" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackMainScene" text="Back" />
    </children>

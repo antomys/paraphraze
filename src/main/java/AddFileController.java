@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import org.apache.commons.io.FilenameUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,6 +32,7 @@ public class AddFileController implements Initializable {
     private TextField pathname;
     @FXML
     private TextField textname;
+    @FXML private javafx.scene.control.Button backbutton;
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
@@ -79,10 +82,13 @@ public class AddFileController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Look, an Error Dialog");
-            alert.setContentText("Ooops, there was an error!");
+            alert.setContentText("Unable to load!");
 
             alert.showAndWait();
+
         }
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+
 
     }
 
@@ -92,6 +98,9 @@ public class AddFileController implements Initializable {
     }
 
     public void BackMainScene(ActionEvent actionEvent) throws IOException {
-        App.setRoot("primary");
+        Stage stage = (Stage) backbutton.getScene().getWindow();
+        // do what you have to do, CLOSE Motherfucker
+        stage.close();
+
     }
 }
