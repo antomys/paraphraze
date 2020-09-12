@@ -2,6 +2,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
@@ -13,11 +16,12 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import org.w3c.dom.Text;
 
 
 public class PrimaryController implements Initializable {
 
-    @FXML private ListView<String> ListViewDB = new ListView<>();
+    @FXML private ListView<String> ListViewDB;
     @FXML private TextArea TextAreaDB;
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
@@ -25,13 +29,17 @@ public class PrimaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Map<String, List<String>> str = DbUtils.getTextNames();
-    ListViewDB.getItems().addAll(str.keySet());
-    ListViewDB.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        //ObservableList list = FXCollections.observableArrayList();
+        //loadData(list);
+
     }
     @FXML
-    private void displayAddFileScene(ActionEvent event) throws IOException {
+    private void displayAddFileScene(ActionEvent event) {
     NewScenes.NewScene("AddFile");
+    }
+    @FXML
+    private void displayDeleteFileScene(ActionEvent event) {
+        NewScenes.NewScene("DeleteFile");
     }
 
     /*private static Parent loadFXML(String fxml) throws  IOException {
