@@ -4,10 +4,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
-
 import javafx.application.Platform;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.input.InputMethodEvent;
 import org.apache.commons.io.FilenameUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +26,8 @@ import javax.swing.*;
 
 public class AddFileController implements Initializable {
 
+    boolean changedtag=false;
+    boolean changedanot=false;
     private File selectedFile;
     @FXML
     private TextArea previewbox = new TextArea();
@@ -34,6 +39,8 @@ public class AddFileController implements Initializable {
     private TextField textname;
     @FXML private javafx.scene.control.Button backbutton;
     @FXML private Button uploadbutton;
+    @FXML private TextArea tagtextarea;
+    @FXML private TextArea anotationtextarea;
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
@@ -66,25 +73,22 @@ public class AddFileController implements Initializable {
             pathname.setText("File selection cancelled.");
         }
     }
-
     @FXML
     private void UploadFile(javafx.event.ActionEvent actionEvent){
-        if(textname.getText() != null)
-        {
-            uploadbutton.setDisable(false);
-            DbUtils.addText(textname.getText(), IOUtils.getStringFromFile(selectedFile.getAbsolutePath()));
+        if(textname.getText() != null) {
+            DbUtils.addTextAnotationText(textname.getText(), IOUtils.getStringFromFile(selectedFile.getAbsolutePath()), anotationtextarea.getText(), tagtextarea.getText());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
             alert.setContentText("Uploaded to DB Successfully!");
-
             alert.showAndWait();
+
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Look, an Error Dialog");
-            alert.setContentText("Unable to load!");
+            alert.setContentText("Unable to load to DB!");
 
             alert.showAndWait();
 
@@ -96,7 +100,10 @@ public class AddFileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        uploadbutton.setDisable(true);
+        BooleanBinding booleanBind = anotationtextarea.textProperty().isEmpty()
+                .or(tagtextarea.textProperty().isEmpty()
+                        .or(textname.textProperty().isEmpty()));
+        uploadbutton.disableProperty().bind(booleanBind);
     }
 
     public void BackMainScene(ActionEvent actionEvent) throws IOException {
@@ -105,4 +112,6 @@ public class AddFileController implements Initializable {
         stage.close();
 
     }
+
+
 }
