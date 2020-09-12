@@ -18,4 +18,18 @@ public class TextInfo {
                 ", tags=" + tags +
                 '}';
     }
+    public String getName() {
+        return name;
+    }
+    public String getText(){
+        return text;
+    }
+    public String getAnnotation(){
+        return annotations.toString();
+    }
+    public String getTags(){
+        return tags.toString();
+    }
+
+
 }

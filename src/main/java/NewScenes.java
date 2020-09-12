@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.util.Optional;
+
 public class NewScenes {
     public static void NewScene(String fxml){
         try {

@@ -164,7 +164,7 @@ public class DbUtils {
         }
     }
      //antomys method. Get text names
-      public static Map<String, List<String>> getTextNames() {
+      /*public static Map<String, List<String>> getTextNames() {
          Connection conn = null;
          Statement stmt = null;
          HashMap<String, List<String>> result = new HashMap<>();
@@ -202,7 +202,7 @@ public class DbUtils {
              }
          }
          return result;
-     }
+     }*/
     public static Map<String, Map<String, Integer>> getText() {
         HashMap<String, Map<String, Integer>> map = new HashMap<>();
         Connection conn = null;
@@ -259,6 +259,10 @@ public class DbUtils {
             ResultSet resultSet = stmt.executeQuery(sql);
             int id = resultSet.getInt("id");
             sql = "DELETE FROM wcount WHERE text_id = " + id;
+            stmt.executeUpdate(sql);
+            sql = "DELETE FROM tags WHERE text_id = " + id;
+            stmt.executeUpdate(sql);
+            sql = "DELETE FROM annotations WHERE text_id = " + id;
             stmt.executeUpdate(sql);
             sql = "DELETE FROM text WHERE id = " + id;
             stmt.executeUpdate(sql);
@@ -335,5 +339,7 @@ public class DbUtils {
         }
         return textInfos;
     }
+
+
 
 }

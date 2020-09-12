@@ -2,6 +2,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.application.Platform;
@@ -41,6 +42,8 @@ public class AddFileController implements Initializable {
     @FXML private Button uploadbutton;
     @FXML private TextArea tagtextarea;
     @FXML private TextArea anotationtextarea;
+
+    Optional<String > returnvalue;
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
@@ -93,6 +96,7 @@ public class AddFileController implements Initializable {
             alert.showAndWait();
 
         }
+
         ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
 
 
@@ -100,10 +104,11 @@ public class AddFileController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        BooleanBinding booleanBind = anotationtextarea.textProperty().isEmpty()
-                .or(tagtextarea.textProperty().isEmpty()
-                        .or(textname.textProperty().isEmpty()));
+        BooleanBinding booleanBind = tagtextarea.textProperty().isEmpty()
+                .or(anotationtextarea.textProperty().isEmpty())
+                .or(previewbox.textProperty().isEmpty());
         uploadbutton.disableProperty().bind(booleanBind);
+
     }
 
     public void BackMainScene(ActionEvent actionEvent) throws IOException {
@@ -114,4 +119,7 @@ public class AddFileController implements Initializable {
     }
 
 
+    public Optional<String> getNewItem() {
+        return returnvalue;
+    }
 }
