@@ -278,6 +278,62 @@ public class DbUtils {
             }
         }
     }
-
+    public static List<TextInfo> getTextInfo() {
+        ArrayList<TextInfo> textInfos = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM text";
+            ResultSet resultSet = stmt.executeQuery(sql);
+            while (resultSet.next()) {
+                TextInfo textInfo = new TextInfo();
+                textInfo.id = resultSet.getInt("id");
+                textInfo.name = resultSet.getString("text_name");
+                textInfo.text = resultSet.getString("summary");
+                textInfos.add(textInfo);
+            }
+            Statement finalStmt1 = stmt;
+            textInfos.forEach(p -> {
+                String sq = "SELECT * FROM tags WHERE text_id = " + p.id;
+                try {
+                    ResultSet resultSet1 = finalStmt1.executeQuery(sq);
+                    while (resultSet1.next()) {
+                        p.tags.add(resultSet1.getString("tags"));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+            Statement finalStmt2 = stmt;
+            textInfos.forEach(p -> {
+                String sq = "SELECT * FROM annotations WHERE text_id = " + p.id;
+                try {
+                    ResultSet resultSet1 = finalStmt2.executeQuery(sq);
+                    while (resultSet1.next()) {
+                        p.annotations.add(resultSet1.getString("annot_text"));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (Exception se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return textInfos;
+    }
 
 }
