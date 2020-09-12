@@ -48,7 +48,7 @@ public class DbUtils {
         return result;
     }
 
-    public static void addText(String name, String text) {
+    /*public static void addText(String name, String text) {
         Scanner scanner = new Scanner(text);
         List<String> words = new ArrayList<>();
         while (scanner.hasNext()) {
@@ -73,6 +73,7 @@ public class DbUtils {
             stmt = conn.createStatement();
             String sql = "INSERT INTO text (text_name) VALUES ('" + name.replace("'", "") + "')";
             stmt.executeUpdate(sql);
+
             sql = "SELECT id FROM text WHERE text_name = '" + name.replace("'", "") + "'";
             ResultSet resultSet = stmt.executeQuery(sql);
             int id = resultSet.getInt("id");
@@ -101,8 +102,107 @@ public class DbUtils {
                 se.printStackTrace();
             }
         }
-    }
+    }*/
 
+    public static void addTextAnotationText(String name, String text, String anotation, String tags) {
+        Scanner scanner = new Scanner(text);
+        String txt = text;
+        List<String> words = new ArrayList<>();
+        while (scanner.hasNext()) {
+            String s = scanner.next().toLowerCase();
+            String finalS = s;
+            Optional<Map.Entry<String, List<String>>> any = synonyms.entrySet().stream()
+                    .filter(e -> e.getValue().contains(finalS))
+                    .findAny();
+            if (any.isPresent()) {
+                s = any.get().getKey();
+            }
+            words.add(s);
+        }
+
+        Map<String, Integer> map = words.stream()
+                .collect(Collectors.toMap(s -> s, s -> 1, Integer::sum));
+
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+            stmt = conn.createStatement();
+            String sql = "INSERT INTO text (text_name,summary) VALUES ('" + name.replace("'", "") + "', '"+txt.replace("'","")+"')";
+            stmt.executeUpdate(sql);
+            sql = "SELECT id FROM text WHERE text_name = '" + name.replace("'", "") + "'";
+            ResultSet resultSet = stmt.executeQuery(sql);
+            int id = resultSet.getInt("id");
+            sql = "INSERT INTO tags (text_id,tags) VALUES ('" + id + "', '"+tags.replace("'","")+"')";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO annotations (text_id,annot_text) VALUES ('" + id + "', '"+anotation.replace("'","")+"')";
+            stmt.executeUpdate(sql);
+            Statement finalStmt = stmt;
+            map.entrySet().forEach(e -> {
+                String sq = String.format("INSERT INTO wcount (text_id, word, count) VALUES (%d, '%s', %d)", id, e.getKey().replace("'", ""), e.getValue());
+                try {
+                    finalStmt.executeUpdate(sq);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
+            });
+        } catch (Exception se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+     //antomys method. Get text names
+      public static Map<String, List<String>> getTextNames() {
+         Connection conn = null;
+         Statement stmt = null;
+         HashMap<String, List<String>> result = new HashMap<>();
+         try {
+             conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+             stmt = conn.createStatement();
+             String sql = "select * from text;";
+             ResultSet resultSet = stmt.executeQuery(sql);
+             ArrayList<Pair<Integer, String>> pairs = new ArrayList<>();
+             while (resultSet.next()) {
+                 pairs.add(new Pair<>(resultSet.getInt("id"), resultSet.getString("text_name")));
+             }
+             for (Pair<Integer, String> pair :pairs) {
+                 ArrayList<String> text_names = new ArrayList<>();
+                 sql = "select text_name from text where id = " + pair.left;
+                 ResultSet rs = stmt.executeQuery(sql);
+                 while (rs.next()) {
+                     text_names.add(rs.getString("text_name"));
+                 }
+                 result.put(pair.rigth, text_names);
+             }
+         } catch (Exception se) {
+             se.printStackTrace();
+         } finally {
+             try {
+                 if (stmt != null)
+                     conn.close();
+             } catch (SQLException ignored) {
+             }
+             try {
+                 if (conn != null)
+                     conn.close();
+             } catch (SQLException se) {
+                 se.printStackTrace();
+             }
+         }
+         return result;
+     }
     public static Map<String, Map<String, Integer>> getText() {
         HashMap<String, Map<String, Integer>> map = new HashMap<>();
         Connection conn = null;
@@ -178,4 +278,6 @@ public class DbUtils {
             }
         }
     }
+
+
 }
