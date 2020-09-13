@@ -58,12 +58,12 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Label fx:id="ALGOlabel" prefHeight="17.0" prefWidth="356.0" text="Algorithm result" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" />
-                              <TextArea fx:id="ALGOannotationtextarea" editable="false" layoutY="21.0" prefHeight="196.0" prefWidth="354.0" promptText="Annotation of Paraphraze" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="21.0" />
+                              <TextArea fx:id="ALGOannotationtextarea" editable="false" layoutY="21.0" prefHeight="196.0" prefWidth="354.0" promptText="Text" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="21.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextArea fx:id="ALGOtagstextarea" editable="false" prefHeight="242.0" prefWidth="358.0" promptText="Tags or whole text" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0" />
+                              <TextArea fx:id="ALGOtagstextarea" editable="false" prefHeight="242.0" prefWidth="358.0" promptText="Annotation" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </items>

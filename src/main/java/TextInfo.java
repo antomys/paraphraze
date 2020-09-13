@@ -1,3 +1,5 @@
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class TextInfo {
     String text;
     List<String> annotations = new ArrayList<>();
     List<String> tags = new ArrayList<>();
+    String replaced;
 
     @Override
     public String toString() {
@@ -18,17 +21,23 @@ public class TextInfo {
                 ", tags=" + tags +
                 '}';
     }
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
     public String getText(){
         return text;
     }
     public String getAnnotation(){
-        return annotations.toString();
+        Replace(annotations);
+        return replaced;
     }
     public String getTags(){
-        return tags.toString();
+        Replace(tags);
+        return replaced;
+    }
+    private String Replace(List<String> list){
+        for(String items:list){
+            replaced=items.replace('[','"');
+        }
+        return replaced;
     }
 
 

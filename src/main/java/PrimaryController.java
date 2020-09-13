@@ -135,15 +135,18 @@ public class PrimaryController implements Initializable {
                     ALGOannotationtextarea.clear();
                     ALGOlabel.setText("Algorithm result");
                     viewtextbutton.setOnMouseClicked(mouseEvent1 -> {
-                        annotationtextarea.setText(textInfo.getText());
+                        if(annotationtextarea.getText().equals(textInfo.getAnnotation())){
+                            annotationtextarea.setText(textInfo.getText());
+                        }
+                        else{annotationtextarea.setText(textInfo.getAnnotation());}
                     });
                     ALGObutton.setOnMouseClicked(mouseEvent1 -> {
                         String result = classifier.matchClass(textInfo.getText());
                         ALGOlabel.setText("Paraphraze of: "+result);
                         for(TextInfo c:textInfoArrayList){
                             if(result.equals(c.getName())){
-                                ALGOtagstextarea.setText(c.getTags());
-                                ALGOannotationtextarea.setText(c.getAnnotation());
+                                ALGOtagstextarea.setText(c.getAnnotation());
+                                ALGOannotationtextarea.setText(c.getText());
 
                             }
                         }
@@ -154,17 +157,4 @@ public class PrimaryController implements Initializable {
             }
         });
         }
-        public void refreshListView(){
-
-        }
-        //textlistview.getSelectionModel().getSelectedItems();
-
-    /*public static List<String> getNames(List<String> names){
-        Map<String, List<String>> str = DbUtils.getTextNames();
-        for (String key: str.keySet()) {
-            names.add(key);
-        }
-        return names;
-    }*/
-
 }
