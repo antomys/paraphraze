@@ -157,4 +157,8 @@ public class PrimaryController implements Initializable {
             }
         });
         }
+
+    public void ShowHelp(ActionEvent actionEvent) {
+        NewScenes.NewScene("HelpScene");
+    }
 }

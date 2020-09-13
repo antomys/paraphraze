@@ -14,14 +14,9 @@
               <MenuItem mnemonicParsing="false" onAction="#CloseApp" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#ShowHelp" text="About" />
             </items>
           </Menu>
         </menus>
