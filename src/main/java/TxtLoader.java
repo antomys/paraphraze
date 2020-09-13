@@ -1,12 +1,13 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class TxtLoader {
 
     static BufferedReader br;
-    public static String readFile2(String file) throws FileNotFoundException, IOException {
+    public static String readFile2(String file) throws IOException {
 
-        StringBuffer ss = new StringBuffer();
-        br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+        StringBuilder ss = new StringBuilder();
+        br = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
         int a; char[] buf = new char[1024];
 
         while (true){
