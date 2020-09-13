@@ -85,6 +85,7 @@ public class AddFileController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Uploaded to DB Successfully!");
             alert.showAndWait();
+            returnvalue=Optional.of(textname.getText());
 
         }
         else {
@@ -114,6 +115,7 @@ public class AddFileController implements Initializable {
     public void BackMainScene(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) backbutton.getScene().getWindow();
         // do what you have to do, CLOSE Motherfucker
+        returnvalue=Optional.empty();
         stage.close();
 
     }

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class DeleteFileController implements Initializable {
@@ -17,6 +18,7 @@ public class DeleteFileController implements Initializable {
     @FXML private ComboBox textcombobox ;
     @FXML private javafx.scene.control.TextArea previewtextarea;
     public ArrayList<TextInfo> textInfoArrayList;
+    Optional<String> returnValue;
 
 
     public void DeleteText(ActionEvent actionEvent) {
@@ -24,6 +26,7 @@ public class DeleteFileController implements Initializable {
         if(previewtextarea.getText() != null) {
             DbUtils.removeText(textcombobox.getSelectionModel().getSelectedItem().toString());
             UpdateCombobox(textcombobox);
+            returnValue = Optional.of("Success");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
@@ -45,6 +48,7 @@ public class DeleteFileController implements Initializable {
 
     public void GoBackScene(ActionEvent actionEvent) {
         Stage stage = (Stage) backbutton.getScene().getWindow();
+        returnValue = Optional.empty();
         // do what you have to do, CLOSE Motherfucker
         stage.close();
     }
@@ -75,5 +79,8 @@ public class DeleteFileController implements Initializable {
         final ObservableList options = FXCollections.observableArrayList(Names);
         textcombobox.setItems(options);
 
+    }
+
+    public Optional<String> getNewItem() { return  returnValue;
     }
 }

@@ -1,0 +1,28 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="paraphraze:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/paraphraze_jar</output-path>
+    <root id="archive" name="paraphraze.jar">
+      <element id="module-output" name="paraphraze" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/13/javafx-graphics-13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/13/javafx-controls-13-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/13/javafx-fxml-13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/13/javafx-graphics-13-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/13/javafx-controls-13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/13/javafx-base-13.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.32.3.2/sqlite-jdbc-3.32.3.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/1.4/commons-io-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/13/javafx-base-13-win.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/13/javafx-fxml-13-win.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: commons-io:commons-io:1.4" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:13" />
+      <element id="library" level="project" name="Maven: org.xerial:sqlite-jdbc:3.32.3.2" />
+    </root>
+  </artifact>
+</component>

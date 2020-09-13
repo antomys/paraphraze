@@ -1,30 +1,27 @@
 import java.io.IOException;
 import java.net.URL;
-import javafx.beans.Observable;
+
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import java.util.*;
-import java.util.List;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
+import javafx.stage.StageStyle;
 
 
 public class PrimaryController implements Initializable {
-    boolean sceneClosed=false;
 
-    @FXML private ListView textlistview = new ListView();
+    @FXML public ListView textlistview = new ListView();
     @FXML private TextArea annotationtextarea;
     @FXML private Button viewtextbutton;
     @FXML private Button ALGObutton;
@@ -33,20 +30,24 @@ public class PrimaryController implements Initializable {
     @FXML private TextArea ALGOannotationtextarea;
     @FXML private TextArea ALGOtagstextarea;
     @FXML private Button refreshbutton;
+    @FXML private SplitPane splitpane;
     public ArrayList<TextInfo> textInfoArrayList;
+    ObservableList options;
+
+
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }
 
-    void UpdateListView(ListView listView){
+    public void UpdateListView(ListView listView){
         textInfoArrayList = (ArrayList<TextInfo>) DbUtils.getTextInfo();
         ArrayList<String> Names = new ArrayList<>();
-        
         for(TextInfo items : textInfoArrayList){
             //listView.getItems().addAll(items.getName());
             Names.add(items.getName());
         }
-        final ObservableList options = FXCollections.observableArrayList(Names);
+//        final ObservableList options = FXCollections.observableArrayList(Names);
+        options= FXCollections.observableArrayList(Names);
         listView.setItems(options);
     }
 
@@ -54,8 +55,6 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UpdateListView(textlistview);
         textlistview.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        //ObservableList list = FXCollections.observableArrayList();
-        //loadData(list);
         handleItemClicks();
         BooleanBinding booleanBind = tagstextarea.textProperty().isEmpty()
                 .or(annotationtextarea.textProperty().isEmpty());
@@ -66,28 +65,51 @@ public class PrimaryController implements Initializable {
             ALGOtagstextarea.clear();
             ALGOlabel.setText("Algorithm result");
         });
+
     }
     @FXML
     private void displayAddFileScene(ActionEvent event) {
-    NewScenes.NewScene("AddFile"); sceneClosed=true;
-        /*try{
-            FXMLLoader addNewItemLoader = new FXMLLoader(getClass().getResource("AddFile.fxml"));
-            Stage secondStage = new Stage();
-            secondStage.setScene(new Scene(addNewItemLoader.load()));
-            AddFileController addFileController = addNewItemLoader.getController();
-            secondStage.showAndWait();
+    //NewScenes.NewScene("AddFile");
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("AddFile.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setScene(new Scene(root));
+            AddFileController addFileController = fxmlLoader.getController();
+            stage.showAndWait();
             Optional<String> result = addFileController.getNewItem();
-            if(result.isPresent()){
-                eventsList.add(result.get());
+            //stage.show();
+            if (result.isPresent()){
+                UpdateListView(textlistview);
+
             }
         }
         catch (IOException e) {
             e.printStackTrace();
-        } */
+        }
+
     }
     @FXML
     private void displayDeleteFileScene(ActionEvent event) {
-        NewScenes.NewScene("DeleteFile"); sceneClosed=true;
+        //NewScenes.NewScene("DeleteFile");
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("DeleteFile.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setScene(new Scene(root));
+            DeleteFileController deleteFileController = fxmlLoader.getController();
+            stage.showAndWait();
+            Optional<String> result = deleteFileController.getNewItem();
+            //stage.show();
+            if (result.isPresent()){
+                //System.out.println("Your name: " + result.get());
+                UpdateListView(textlistview);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*private static Parent loadFXML(String fxml) throws  IOException {
@@ -109,6 +131,9 @@ public class PrimaryController implements Initializable {
                 if(selected.equals(textInfo.getName())){
                     tagstextarea.setText(textInfo.getTags());
                     annotationtextarea.setText(textInfo.getAnnotation());
+                    ALGOtagstextarea.clear();
+                    ALGOannotationtextarea.clear();
+                    ALGOlabel.setText("Algorithm result");
                     viewtextbutton.setOnMouseClicked(mouseEvent1 -> {
                         annotationtextarea.setText(textInfo.getText());
                     });
