@@ -2,6 +2,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -12,6 +13,8 @@ public class NewScenes {
             Parent root = fxmlLoader.load();
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setScene(new Scene(root));
+            stage.setTitle("Help");
+            stage.getIcons().add(new Image(App.class.getResourceAsStream("icons/help.png")));
             stage.show();
         }
         catch(Exception exception){

@@ -12,6 +12,7 @@ import java.util.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -62,6 +63,8 @@ public class PrimaryController implements Initializable {
             Parent root = fxmlLoader.load();
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setScene(new Scene(root));
+            stage.setTitle("Add File");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("icons/add.png")));
             AddFileController addFileController = fxmlLoader.getController();
             stage.showAndWait();
             Optional<String> result = addFileController.getNewItem();
@@ -80,6 +83,8 @@ public class PrimaryController implements Initializable {
             Parent root = fxmlLoader.load();
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setScene(new Scene(root));
+            stage.setTitle("Delete File");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("icons/del.png")));
             DeleteFileController deleteFileController = fxmlLoader.getController();
             stage.showAndWait();
             Optional<String> result = deleteFileController.getNewItem();
