@@ -43,7 +43,7 @@ public class DeleteFileController implements Initializable {
             alert.showAndWait();
 
         }
-        //((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
     }
 
     public void GoBackScene(ActionEvent actionEvent) {
