@@ -13,7 +13,7 @@ public class DbUtils {
         Statement stmt = null;
         HashMap<String, List<String>> result = new HashMap<>();
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\synsets_ua.db");
             stmt = conn.createStatement();
             String sql = "select * from synset;";
             ResultSet resultSet = stmt.executeQuery(sql);
@@ -126,7 +126,7 @@ public class DbUtils {
         Connection conn = null;
         Statement stmt = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\synsets_ua.db");
             stmt = conn.createStatement();
             String sql = "INSERT INTO text (text_name,summary) VALUES ('" + name.replace("'", "") + "', '"+txt.replace("'","")+"')";
             stmt.executeUpdate(sql);
@@ -208,7 +208,7 @@ public class DbUtils {
         Connection conn = null;
         Statement stmt = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\synsets_ua.db");
             stmt = conn.createStatement();
             String sql = "SELECT * FROM text";
             ResultSet resultSet = stmt.executeQuery(sql);
@@ -253,7 +253,7 @@ public class DbUtils {
         Connection conn = null;
         Statement stmt = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\synsets_ua.db");
             stmt = conn.createStatement();
             String sql = "SELECT * FROM text WHERE text_name = '" + textName + "'";
             ResultSet resultSet = stmt.executeQuery(sql);
@@ -287,7 +287,7 @@ public class DbUtils {
         Connection conn = null;
         Statement stmt = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
+            conn = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\synsets_ua.db");
             stmt = conn.createStatement();
             String sql = "SELECT * FROM text";
             ResultSet resultSet = stmt.executeQuery(sql);

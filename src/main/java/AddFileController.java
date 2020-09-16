@@ -25,7 +25,7 @@ public class AddFileController implements Initializable {
     @FXML private TextArea anotationtextarea;
     @FXML private Label LabelError;
     Optional<String > returnvalue;
-    boolean similar = false;
+    boolean similar;
     @FXML
     public void InputFile() throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -44,7 +44,7 @@ public class AddFileController implements Initializable {
     }
     @FXML
     private void UploadFile(javafx.event.ActionEvent actionEvent){
-        if (textname.getText() != null && !similar) {
+        if (!similar) {
             DbUtils.addTextAnotationText(textname.getText(),
                     IOUtils.getStringFromFile(selectedFile.getAbsolutePath()),
                     anotationtextarea.getText(), tagtextarea.getText());
@@ -55,7 +55,7 @@ public class AddFileController implements Initializable {
             alert.showAndWait();
             returnvalue = Optional.of(textname.getText());
         }
-        if(similar)
+        else
             { Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Dialog");
         alert.setHeaderText("Look, an Error Dialog");

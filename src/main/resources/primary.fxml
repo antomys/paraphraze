@@ -35,23 +35,35 @@
                               <Button fx:id="deletebutton" layoutX="55.0" layoutY="403.0" maxHeight="31.0" mnemonicParsing="false" onAction="#displayDeleteFileScene" prefHeight="25.0" prefWidth="71.0" text="Delete" AnchorPane.bottomAnchor="5.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                    </items>
+                  </SplitPane>
+                  <SplitPane dividerPositions="0.7665903890160183" layoutX="140.0" orientation="VERTICAL" prefHeight="439.0" prefWidth="219.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TextArea fx:id="annotationtextarea" editable="false" prefHeight="363.0" prefWidth="219.0" promptText="Annotation or whole text" wrapText="true" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextArea fx:id="annotationtextarea" editable="false" prefHeight="184.0" prefWidth="217.0" promptText="Annotation or whole text" wrapText="true" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <font>
                                     <Font name="Segoe UI" size="12.0" />
                                  </font></TextArea>
-                              <TextArea fx:id="tagstextarea" editable="false" layoutY="388.0" maxHeight="151.0" prefHeight="51.0" prefWidth="219.0" promptText="Tags" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="388.0" />
-                              <Button fx:id="viewtextbutton" layoutX="109.0" layoutY="363.0" maxHeight="25.0" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="110.0" text="View Text" AnchorPane.rightAnchor="0.0">
+                              <Button fx:id="viewtextbutton" layoutX="-1.0" layoutY="300.0" maxHeight="25.0" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="219.0" text="View Text" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0">
                                  <font>
                                     <Font name="Segoe UI" size="12.0" />
                                  </font></Button>
-                              <Button fx:id="refreshbutton" layoutX="1.0" layoutY="363.0" maxHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Refresh" AnchorPane.leftAnchor="1.0">
+                              <Button fx:id="refreshbutton" maxHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Refresh" visible="false" AnchorPane.leftAnchor="1.0">
                                  <font>
                                     <Font name="Segoe UI" size="12.0" />
                                  </font></Button>
                            </children>
                         </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TextArea fx:id="tagstextarea" editable="false" layoutX="-8.0" prefHeight="99.0" prefWidth="232.0" promptText="Tags" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-8.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font name="Segoe UI" size="12.0" />
+                                 </font>
+                              </TextArea>
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children>
