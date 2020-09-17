@@ -48,61 +48,35 @@ public class DbUtils {
         return result;
     }
 
-    /*public static void addText(String name, String text) {
-        Scanner scanner = new Scanner(text);
-        List<String> words = new ArrayList<>();
-        while (scanner.hasNext()) {
-            String s = scanner.next().toLowerCase();
-            String finalS = s;
-            Optional<Map.Entry<String, List<String>>> any = synonyms.entrySet().stream()
-                    .filter(e -> e.getValue().contains(finalS))
-                    .findAny();
-            if (any.isPresent()) {
-                s = any.get().getKey();
-            }
-            words.add(s);
-        }
-
-        Map<String, Integer> map = words.stream()
-                .collect(Collectors.toMap(s -> s, s -> 1, Integer::sum));
-
-        Connection conn = null;
-        Statement stmt = null;
+    public static void modifyAnnotations(String name, String annotation, String tags) {
+        Connection connection = null;
+        Statement statement = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/synsets_ua.db");
-            stmt = conn.createStatement();
-            String sql = "INSERT INTO text (text_name) VALUES ('" + name.replace("'", "") + "')";
-            stmt.executeUpdate(sql);
-
-            sql = "SELECT id FROM text WHERE text_name = '" + name.replace("'", "") + "'";
-            ResultSet resultSet = stmt.executeQuery(sql);
+            connection = DriverManager.getConnection("jdbc:sqlite:" + System.getProperty("user.dir") + "\\synsets_ua.db");
+            statement = connection.createStatement();
+            String sql = "SELECT id FROM text WHERE text_name = '" + name.replace("'", "") + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
             int id = resultSet.getInt("id");
-            Statement finalStmt = stmt;
-            map.entrySet().forEach(e -> {
-                String sq = String.format("INSERT INTO wcount (text_id, word, count) VALUES (%d, '%s', %d)", id, e.getKey().replace("'", ""), e.getValue());
-                try {
-                    finalStmt.executeUpdate(sq);
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-
-            });
+            sql = "UPDATE tags SET tags = '" + tags.replace("'", "") + "'" + "WHERE text_id = '" + id + "'";
+            statement.executeUpdate(sql);
+            sql = "UPDATE annotations SET annot_text = '" + annotation.replace("'", "") + "'" + "WHERE text_id = '" + id + "'";
+            statement.executeUpdate(sql);
         } catch (Exception se) {
             se.printStackTrace();
         } finally {
             try {
-                if (stmt != null)
-                    conn.close();
+                if (statement != null)
+                    connection.close();
             } catch (SQLException ignored) {
             }
             try {
-                if (conn != null)
-                    conn.close();
+                if (connection != null)
+                    connection.close();
             } catch (SQLException se) {
                 se.printStackTrace();
             }
         }
-    }*/
+    }
 
     public static void addTextAnotationText(String name, String text, String anotation, String tags) {
         Scanner scanner = new Scanner(text);

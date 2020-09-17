@@ -27,7 +27,8 @@ public class PrimaryController implements Initializable {
     @FXML private Label ALGOlabel;
     @FXML private TextArea ALGOannotationtextarea;
     @FXML private TextArea ALGOtagstextarea;
-    @FXML private Button refreshbutton;
+    @FXML private Button deletebutton;
+    @FXML private Button savebutton;
     public ArrayList<TextInfo> textInfoArrayList;
     ObservableList<String> options;
     public void UpdateListView(ListView<String> listView){
@@ -48,12 +49,8 @@ public class PrimaryController implements Initializable {
         BooleanBinding booleanBind = tagstextarea.textProperty().isEmpty()
                 .or(annotationtextarea.textProperty().isEmpty());
         viewtextbutton.disableProperty().bind(booleanBind);
-        refreshbutton.setOnAction(actionEvent -> {
-            UpdateListView(textlistview);
-            ALGOannotationtextarea.clear();
-            ALGOtagstextarea.clear();
-            ALGOlabel.setText("Algorithm result");
-        });
+        savebutton.setDisable(true);
+
 
     }
     @FXML
@@ -106,18 +103,32 @@ public class PrimaryController implements Initializable {
         textlistview.setOnMouseClicked(mouseEvent -> {
             String selected = textlistview.getSelectionModel().getSelectedItem();
             textInfoArrayList= (ArrayList<TextInfo>) DbUtils.getTextInfo();
+            deletebutton.setOnMouseClicked(mouseEvent1 -> { DbUtils.removeText(selected); UpdateListView(textlistview);  });
             for(TextInfo textInfo: textInfoArrayList){
                 if(selected.equals(textInfo.getName())){
                     tagstextarea.setText(textInfo.getTags());
                     annotationtextarea.setText(textInfo.getAnnotation());
+                    annotationtextarea.textProperty().addListener((observable, oldValue, newValue) -> {savebutton.setDisable(false); });
+                    tagstextarea.textProperty().addListener((observable, oldValue, newValue) -> savebutton.setDisable(false));
+                    savebutton.setDisable(true);
+                    savebutton.setOnMouseClicked(mouseEvent1 -> {
+                        DbUtils.modifyAnnotations(selected,annotationtextarea.getText(),tagstextarea.getText());
+                        UpdateListView(textlistview);
+                        savebutton.setDisable(true);
+                    });
+
                     ALGOtagstextarea.clear();
                     ALGOannotationtextarea.clear();
                     ALGOlabel.setText("Algorithm result");
                     viewtextbutton.setOnMouseClicked(mouseEvent1 -> {
                         if(annotationtextarea.getText().equals(textInfo.getAnnotation())){
                             annotationtextarea.setText(textInfo.getText());
+                            annotationtextarea.setEditable(false);
+                            savebutton.setDisable(true);
+
                         }
-                        else{annotationtextarea.setText(textInfo.getAnnotation());}
+                        else{annotationtextarea.setText(textInfo.getAnnotation()); annotationtextarea.setEditable(true);
+                            savebutton.setDisable(true);}
                     });
                     ALGObutton.setOnMouseClicked(mouseEvent1 -> {
                         String result = classifier.matchClass(textInfo.getText());
@@ -126,15 +137,13 @@ public class PrimaryController implements Initializable {
                             if(result.equals(c.getName())){
                                 ALGOtagstextarea.setText(c.getAnnotation());
                                 ALGOannotationtextarea.setText(c.getText());
-
                             }
                         }
                     });
                 }
             }
         });
-        }
-
+    }
     public void ShowHelp() {
         NewScenes.NewScene("HelpScene");
     }
