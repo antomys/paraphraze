@@ -36,7 +36,7 @@
 
 ## Інсталювання
 
-Для інсталювання достатньо завантажити [файл інсталяції](https://github.com/antomys/paraphraze/releases/download/Release/mysetup.exe) або завантажити повний [пак](https://github.com/antomys/paraphraze/releases/download/Release/shade.zip) програми
+Для інсталювання достатньо завантажити [файл інсталяції](https://github.com/antomys/paraphraze/releases/download/1.1.0/setup.exe) або завантажити повний [пак](https://github.com/antomys/paraphraze/releases/download/1.1.0/shade.7z) програми
 разом із .exe та .jar файлами.
 
 <a name="Build"></a>
@@ -80,9 +80,9 @@
 
 ## Запуск
 
-Якщо програму було встановлено через [файл інсталяції](https://github.com/antomys/paraphraze/releases/download/Release/mysetup.exe), то на робочому столі з'явиться ярлик програми.
+Якщо програму було встановлено через [файл інсталяції](https://github.com/antomys/paraphraze/releases/download/1.1.0/setup.exe), то на робочому столі з'явиться ярлик програми.
 
-Якщо програму було завантажено з [паку](https://github.com/antomys/paraphraze/releases/download/Release/shade.zip), то треба запустити командру строку,
+Якщо програму було завантажено з [паку](https://github.com/antomys/paraphraze/releases/download/1.1.0/shade.7z), то треба запустити командру строку,
 Ввести команду ```cd /path/to/files``` Де ```path/to/files``` - шлях до розпакованої папки.
 
 <img src="https://i.ibb.co/Z67Xg50/cd.png" width="600" height="400">
